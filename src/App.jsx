@@ -5,6 +5,7 @@ const LOGO_SRC = `${BASE_URL}logo_branca.png`;
 const LOGO_ICON_SRC = `${BASE_URL}logo_casinha.png`;
 const PAGE_TITLE = "Brasil Terrenos | Painel de Empreendimentos";
 const FAVICON_SRC = `${BASE_URL}logo_casinha.png`;
+const LAND_BANK_PORTAL_URL = "https://buritiempreendimentos.github.io/land-bank-mapa-brasil-terrenos/";
 
 function BrowserMeta() {
   useEffect(() => {
@@ -340,6 +341,25 @@ const SectionTitle = ({ title, sub }) => (
 const Dot = ({ color }) => <span style={{ display:"inline-block", width:8, height:8, borderRadius:"50%", background:color, marginRight:6 }} />;
 
 // ── COMPONENTS ───────────────────────────────────────────────────────────────
+
+
+function PortalLandBank() {
+  return (
+    <iframe
+      src={LAND_BANK_PORTAL_URL}
+      title="Portal Land Bank Brasil Terrenos"
+      style={{
+        width:"100%",
+        height:"100%",
+        border:0,
+        display:"block",
+        background:BT.branco,
+      }}
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    />
+  );
+}
 
 function VigaoGeral({ onCard }) {
   const total = EMPREENDIMENTOS.length;
@@ -1273,6 +1293,13 @@ const SidebarIcon = ({ name }) => {
         <path d="M17 7h2v2" />
       </svg>
     ),
+    map: (
+      <svg {...common}>
+        <path d="M9 18 3 21V6l6-3 6 3 6-3v15l-6 3z" />
+        <path d="M9 3v15" />
+        <path d="M15 6v15" />
+      </svg>
+    ),
     settings: (
       <svg {...common}>
         <path d="M4 7h10" />
@@ -1290,6 +1317,7 @@ const SidebarIcon = ({ name }) => {
 
 const MENU = [
   { id:"visao", label:"Visão Geral", icon:"dashboard" },
+  { id:"landbank", label:"Land Bank", icon:"map" },
   { id:"esteira", label:"Esteira", icon:"pipeline" },
   { id:"prazos", label:"Mapa de Prazos", icon:"schedule" },
   { id:"lancamentos", label:"Lançamentos", icon:"launch" },
@@ -1437,8 +1465,17 @@ export default function App() {
         </div>
 
         {/* CONTENT */}
-        <div style={{ flex:1, minWidth:0, overflowY:"auto", overflowX:"hidden", padding:24 }}>
+        <div
+          style={{
+            flex:1,
+            minWidth:0,
+            overflowY:page === "landbank" ? "hidden" : "auto",
+            overflowX:"hidden",
+            padding:page === "landbank" ? 0 : 24,
+          }}
+        >
           {page==="visao"        && <VigaoGeral onCard={setDetail} />}
+          {page==="landbank"     && <PortalLandBank />}
           {page==="esteira"      && <EsteiraKanban onCard={setDetail} />}
           {page==="prazos"       && <MapaPrazos />}
           {page==="lancamentos"  && <PlanejamentoLancamentos />}
