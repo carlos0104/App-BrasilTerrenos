@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-const LOGO_SRC = "/logo_branca.png";
+const BASE_URL = import.meta.env.BASE_URL;
+const LOGO_SRC = `${BASE_URL}logo_branca.png`;
+const LOGO_ICON_SRC = `${BASE_URL}logo_casinha.png`;
 
 const GLOBAL_CSS = `
   * {
@@ -1293,7 +1295,7 @@ export default function App() {
           {sideOpen ? (
             <div style={{ width:"100%", display:"flex", alignItems:"center", justifyContent:"center" }}>
               <img
-                src="/logo_branca.png"
+                src={LOGO_SRC}
                 alt="Brasil Terrenos"
                 style={{ display:"block", width:"100%", maxWidth:196, height:64, objectFit:"contain", objectPosition:"center center" }}
                 onError={(e)=>{ e.currentTarget.style.display = "none"; }}
@@ -1312,7 +1314,7 @@ export default function App() {
               }}
             >
               <img
-                src="/logo_casinha.png"
+                src={LOGO_ICON_SRC}
                 alt=""
                 style={{
                   width:40,
