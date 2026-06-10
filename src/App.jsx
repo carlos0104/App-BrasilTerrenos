@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BASE_URL = import.meta.env.BASE_URL;
 const LOGO_SRC = `${BASE_URL}logo_branca.png`;
 const LOGO_ICON_SRC = `${BASE_URL}logo_casinha.png`;
+const PAGE_TITLE = "Brasil Terrenos | Painel de Empreendimentos";
+const FAVICON_SRC = `${BASE_URL}logo_casinha.png`;
+
+function BrowserMeta() {
+  useEffect(() => {
+    document.title = PAGE_TITLE;
+
+    let favicon = document.querySelector("link[rel='icon']");
+    if (!favicon) {
+      favicon = document.createElement("link");
+      favicon.setAttribute("rel", "icon");
+      document.head.appendChild(favicon);
+    }
+
+    favicon.setAttribute("type", "image/png");
+    favicon.setAttribute("href", FAVICON_SRC);
+  }, []);
+
+  return null;
+}
 
 const GLOBAL_CSS = `
   * {
@@ -1287,6 +1307,7 @@ export default function App() {
 
   return (
     <>
+      <BrowserMeta />
       <GlobalStyles />
       <div style={{ display:"flex", width:"100vw", minWidth:0, height:"100vh", fontFamily:"'Segoe UI', Roboto, Arial, sans-serif", background:BT.cinzaClaro, overflow:"hidden" }}>
       {/* SIDEBAR */}
